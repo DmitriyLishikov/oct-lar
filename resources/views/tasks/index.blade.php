@@ -56,6 +56,13 @@
                                 <i class="fa fa-trash"></i> Удалить
                             </button>
                         </form>
+                         <form method='get' action="{{ url('tasks/'.$task->id.'/edit') }}">
+                            {{ csrf_field() }}
+                            {{method_field('put')}}                                     
+                            <button type="submit" class="btn btn-default bg-danger">
+                                <i class="fa fa-edit"></i> Изменить
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
