@@ -10,7 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+use Illuminate\Http\Request;
 Route::get('/', function () {
-    return view('welcome');
+    return view('tasks.index');//в уроке это вид tasks
+});
+
+Route::post('/task',function(Request $request){
+  
 });
