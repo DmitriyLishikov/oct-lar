@@ -43,6 +43,12 @@ Route::delete('/tasks/{task}', function(Request $request, Task $task) {
 
 
 
-Route::get('/tasks/{task}/edit', function(Request $request, Task $task) {
+Route::get('/tasks/{task}/edit', function( Task $task) {
     
+    return redirect('/edit');
+});
+
+Route::put('/tasks/{task}', function( Task $task) {
+    $task = new Task();
+    return redirect('/');
 });

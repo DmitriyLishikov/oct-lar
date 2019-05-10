@@ -58,7 +58,7 @@
                         </form>
                          <form method='get' action="{{ url('tasks/'.$task->id.'/edit') }}">
                             {{ csrf_field() }}
-                            {{method_field('put')}}                                     
+                            {{method_field('get')}}                                     
                             <button type="submit" class="btn btn-default bg-danger">
                                 <i class="fa fa-edit"></i> Изменить
                             </button>
