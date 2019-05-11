@@ -13,6 +13,7 @@
 
 use Illuminate\Http\Request;
 use App\Task;
+use app\News;
 
 Route::get('/', function() {
     return view('index');
@@ -71,9 +72,26 @@ Route::group(['prefix' => 'tasks'], function() {
 });
 
 Route::group(['prefix' => 'news'], function() {
-    Route::get('/',function(){
-        return view('news');  
+    Route::get('/', function() {
+       $news = News::all();
+        return view('tasks.index', [
+            'news' => $news, 
+        ]);
+    })->name('news_index');
+
+    Route::post('/news', function (Request $request) {
+        $validator = Validator::make($request->all(), [
+        'name' => 'required|max:255',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/')
+                            ->withInput()
+                            ->withErrors($validator);
+        }
+        $news = new News();
+        $news->name = $request->name;
+        $news->text = $request->text;
+        $news->save();
+        return redirect(route('news_index'));
     });
-    
-    
 });
