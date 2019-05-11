@@ -1,10 +1,26 @@
 @extends('layouts.app')
 @section('content')
-<form method='get' action="{{ url('tasks/'.$task->id) }}">
-    {{ csrf_field() }}
-    {{method_field('put')}}                                     
-    <button type="submit" class="btn btn-default bg-danger">
-        <i class="fa fa-edit"></i> Изменить
-    </button>
-</form>
+<!-- Bootstrap шаблон... -->
+<div class="panel-body">
+    <!-- Отображение ошибок проверки ввода -->
+    @include('common.errors')
+    <!-- Форма новой задачи -->
+    <form method='post' action="{{ route('tasks_update', $task->id) }}">
+        {{ csrf_field() }}
+        {{method_field('put')}}                                     
+        <div class="form-group">
+            <label for="task" class="col-sm-3 control_label">Задача</label>
+            <div class="col-sm-6">
+                <input type="text" name="name" id="task-name" class="form-control" value="{{$task->name}}" >
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-6">
+                <button type="submit" clas="btn btn-default bg-succes">
+                    <i class="fa fa-plus"></i>Сохранить задачу
+                </button>
+            </div>
+        </div>
+        <form>
+</div>
 @endsection
