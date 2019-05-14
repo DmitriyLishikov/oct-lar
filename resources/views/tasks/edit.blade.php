@@ -20,7 +20,6 @@
                     <i class="fa fa-plus"></i>Сохранить задачу
                 </button>
             </div>
-        </div>
-        <form>
+    </form>
 </div>
 @endsection

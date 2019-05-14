@@ -13,7 +13,7 @@
 
 use Illuminate\Http\Request;
 use App\Task;
-use app\News;
+use App\News;
 
 Route::get('/', function() {
     return view('index');
@@ -71,20 +71,23 @@ Route::group(['prefix' => 'tasks'], function() {
     })->name('tasks_update');
 });
 
+
+
+
 Route::group(['prefix' => 'news'], function() {
-    Route::get('/', function() {
-       $news = News::all();
-        return view('tasks.index', [
-            'news' => $news, 
-        ]);
+    Route::get('/', function () {
+        $news = News::all();
+        return view('news.index');
     })->name('news_index');
 
-    Route::post('/news', function (Request $request) {
+
+    Route::post('/', function (Request $request) {
         $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
+                    'name' => 'required|max:255',
+                    'text' => 'required',                   
         ]);
         if ($validator->fails()) {
-            return redirect('/')
+            return redirect(route('news_index'))
                             ->withInput()
                             ->withErrors($validator);
         }
@@ -93,5 +96,17 @@ Route::group(['prefix' => 'news'], function() {
         $news->text = $request->text;
         $news->save();
         return redirect(route('news_index'));
-    });
+    })->name('news_store');
+
+    Route::get('/{news}/show', function( News $news) {
+        return view('news.show', [
+            'news' => $news,
+        ]);
+    })->name('news_show');
+    
+    
+    Route::delete('/{news}', function( News $news) {
+        $news->delete();
+        return redirect(route('news_index'));
+    })->name('news_destroy');
 });
